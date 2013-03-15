@@ -1,0 +1,8 @@
+App ID/API Key
+461508467254738
+Código secreto de la aplicación
+a7431da799bfd48e371f35d5350b3537
+App Namespace
+og_django
+Sandbox Mode
+Desactivado
