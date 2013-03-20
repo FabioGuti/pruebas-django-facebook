@@ -11,9 +11,13 @@
       }
     </style>
     <script src="jquery-1.9.1.min.js"></script>
+    <script src="jcanvas.min.js"></script>
   </head>
   <body>
     <canvas id="myCanvas" width="600" height="600" style=""></canvas>
+    <button id="btnGen">generar</button>
+    <input id= "texto"></input>
+    <button id= "dibujarTexto">dibujarTexto</button>
     <img id="canvasImg" alt="Right click to save me!">    
     <script>
 
@@ -23,16 +27,60 @@
       
       var imageObj = new Image();
       
-      imageObj.onload = function() {
-        context.drawImage(imageObj, 0, 0);
-        context.font = "20pt Calibri";
-        context.fillStyle = "blue";
-        context.fillText("Yao Ming ", 100, 100);
-        var dataURL = canvas.toDataURL("image/png");
+        $("#myCanvas").addLayer({
+          draggable:true,
+          method: "drawImage",
+          source: "meme.jpg",
+          x: 150, y: 150,
+          width: 200, height: 125,
+          load: function() {
+            $(this).drawLayer(1);
+          }
+        });
+
+        $("#dibujarTexto").on("click",function() {
+          $("#myCanvas").addLayer({
+            draggable: true,
+            method: "drawText",
+            fillStyle: "#9cf",
+            strokeStyle: "#25a",
+            strokeWidth: 2,
+            x: 20, y: 20,
+            font: "36pt Verdana, sans-serif",
+            text: $("#texto").val()
+          }).drawLayer(0);
+        })
+        
+        
+
+      // imageObj.onload = function() {
+      //   context.drawImage(imageObj, 0, 0);
+
+      //   $("canvas").drawText({
+      //     layer: true,
+      //     draggable: true,
+      //     fillStyle: "#9cf",
+      //     strokeStyle: "#25a",
+      //     strokeWidth: 2,
+      //     x: 150, y: 100,
+      //     font: "36pt Verdana, sans-serif",
+      //     text: "Hello"
+      //   });
+
+      //   context.font = "20pt Calibri";
+      //   context.fillStyle = "blue";
+      //   context.fillText("Yao Ming ", 100, 100);
+        
+      // };
+
+      $(btnGen).on("click",function() {
+        dataURL = $("canvas").getCanvasImage("png");
+        //var dataURL = canvas.toDataURL("image/png");
+        console.log(dataURL);
         document.getElementById('canvasImg').src = dataURL;
-      };
-      imageObj.src = "meme.jpg";  
-      context.save();      
+      });
+
+      imageObj.src = "meme.jpg";    
      });    
     </script>
   </body>
