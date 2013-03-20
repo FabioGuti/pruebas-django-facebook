@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #canvasImg {
+        border: 1px solid #9C9898;
+      }
+    </style>
+    <script src="jquery-1.9.1.min.js"></script>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="600" height="600" style=""></canvas>
+    <img id="canvasImg" alt="Right click to save me!">    
+    <script>
+
+    $(function() {
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      
+      var imageObj = new Image();
+      
+      imageObj.onload = function() {
+        context.drawImage(imageObj, 0, 0);
+        context.font = "20pt Calibri";
+        context.fillStyle = "blue";
+        context.fillText("Yao Ming ", 100, 100);
+        var dataURL = canvas.toDataURL("image/png");
+        document.getElementById('canvasImg').src = dataURL;
+      };
+      imageObj.src = "meme.jpg";  
+      context.save();      
+     });    
+    </script>
+  </body>
+</html>
